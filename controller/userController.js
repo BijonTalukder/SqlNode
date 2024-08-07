@@ -4,9 +4,8 @@ const userSchema = require('../middleware/userValidate');
 // const userSchema = require('../schemas/userSchema'); // Adjust the path as necessary
 
 const createUser = async (req, res, next) => {
-  // Validate the request body
+  
   const { error } = userSchema.validate(req.body)
-// userSchema.validate(req.body)
   if (error) return res.status(400).json({ error: error.details[0].message });
 
   try {
