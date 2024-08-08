@@ -1,58 +1,43 @@
-require('dotenv').config();
-const { Sequelize } = require('sequelize');
-const mysql = require('mysql2/promise');
 
-// Database configuration
-const dbConfig = {
-    host: process.env.DB_HOST,
-    port: process.env.DB_PORT,
-    user: process.env.DB_USER,
-    password: process.env.DB_PASSWORD
-};
+import mysql from 'mysql2/promise';
+import sequelize from '../model/index.js';
+import { dotenvHelper } from './dotenv.js';
 
-// Create a connection to check and create the database
-const createDatabaseIfNotExists = async () => {
-    const connection = await mysql.createConnection(dbConfig);
+// dotenv.config();
+
+
+  const createDatabaseIfNotExists = async () => {
+    // console.log("call2");
+    
+    const connection = await mysql.createConnection(
+        {
+            host: dotenvHelper.dbConfig.host,
+            user: dotenvHelper.dbConfig.user,
+            password: dotenvHelper.dbConfig.password,
+          }
+    );
+    // console.log(connection,"call3");
+    
     try {
-        await connection.query(`CREATE DATABASE IF NOT EXISTS \`${process.env.DB_NAME}\``);
+        const res = await connection.query(`CREATE DATABASE IF NOT EXISTS \`${dotenvHelper.dbConfig.database}\``);
+        // console.log("call this",res);
+        
         console.log('Database created or already exists.');
     } finally {
-        await connection.end();
+      await connection.end();
     }
-};
-
-// Create a Sequelize instance with the database name
-const createSequelizeInstance = () => {
-    return new Sequelize(process.env.DB_NAME, process.env.DB_USER, process.env.DB_PASSWORD, {
-        host: process.env.DB_HOST,
-        port: process.env.DB_PORT,
-        dialect: 'mysql',
-        logging: false
-    });
-};
-
-const dbConnection = async () => {
+  };
+ export const setup = async () => {
     try {
-        // Ensure database exists
-        await createDatabaseIfNotExists();
-
-        // Create a Sequelize instance with the correct database name
-        const sequelize = createSequelizeInstance();
-
-        // Test the connection
-        await sequelize.authenticate();
-        console.log(`Database connected successfully with ${process.env.DB_NAME} 🔥`);
-
-        // Export sequelize for use in other modules
-        module.exports = {
-            sequelize
-        };
+        // console.log("call 1");
+        
+      await createDatabaseIfNotExists();
+      await sequelize.authenticate();
+      console.log('Database connected...');
+  
+      await sequelize.sync({ force: true });
+      console.log('Database & tables created!');
     } catch (error) {
-        console.error(`Unable to connect to the database: ${error}`);
+      console.error('Error setting up database:', error);
     }
-};
-
-module.exports={
-    dbConnection
-    
-}
+  };
