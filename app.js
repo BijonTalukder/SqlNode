@@ -1,8 +1,7 @@
 import express from 'express';
-import { Sequelize, DataTypes } from 'sequelize';
-import mysql from 'mysql2/promise';
-import {  setup } from './config/dbConnect.js'; // Ensure you use .js extension
-import router from './routes/route.js'; // Ensure you use .js extension
+
+import { setup } from './src/config/dbConnect.js';
+import router from './src/routes/route.js';
 
 const app = express();
 app.use(express.json());
