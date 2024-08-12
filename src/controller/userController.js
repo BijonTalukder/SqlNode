@@ -4,7 +4,7 @@ import { userService } from '../service/userService.js';
 import sendResponse from '../shared/sendResponse.js';
 import httpStatus from 'http-status';
 import userSchema from '../middleware/userValidate.js';
-import UserModel from '../model/userModel.js';
+import UserModel from '../model/erpUserModel.js';
 
 
 const createUser = catchAsync(async (req, res, next) => {
@@ -45,7 +45,6 @@ const getUsers = catchAsync(async (req, res, next) => {
 
 const updateUser = catchAsync(async (req, res, next) => {
   const { id } = req.params;
-  console.log(req.body);
   
   const data = userService.updateUser(req.body,id);
 

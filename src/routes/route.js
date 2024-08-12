@@ -1,6 +1,6 @@
 import express from 'express';
 // import { createUser, getUser } from '../controller/userController.js'; // Ensure correct path and extension
-import UserModel from '../model/userModel.js'; // Ensure correct path and extension
+import UserModel from '../model/erpUserModel.js'; // Ensure correct path and extension
 import { userController } from '../controller/userController.js';
 
 const router = express.Router();

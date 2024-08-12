@@ -1,5 +1,5 @@
 
-import userModel from "../model/userModel.js";
+import userModel from "../model/erpUserModel.js";
 
 //create user
 const createUser=async(postBody)=>{
