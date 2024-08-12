@@ -3,18 +3,15 @@ import sysAdminSchema from "../middleware/sysAdminValidate.js";
 import { sysAdminService } from "../service/sysAdminService.js";
 import catchAsync from "../shared/catchAsync.js"
 import sendResponse from "../shared/sendResponse.js";
+import ApiError from "../error/handleApiError.js";
 
 const createSysAdmin = catchAsync(async (req, res) => {
-    // Validate request body
+   
     const { error } = sysAdminSchema.validate(req.body);
     
     if (error) {
-        return sendResponse(res, {
-            statusCode: httpStatus.BAD_REQUEST,
-            success: false,
-            message: error.details[0].message,
-            data: null
-        });
+        return ApiError(httpStatus.BAD_REQUEST,error.details[0].message)
+        
     }
 
 
