@@ -21,6 +21,7 @@
     "express": "^4.19.2",
     "http-status": "^1.7.4",
     "joi": "^17.13.3",
+    "jsonwebtoken": "^9.0.2",
     "mysql": "^2.18.1",
     "mysql2": "^3.11.0",
     "nodemon": "^3.1.4",
