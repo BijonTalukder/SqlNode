@@ -11,7 +11,7 @@ app.use(express.json());
 
 
 app.use('/api/v1', router);
-app.use("/api/v1/system-admin",sysAdminRouter);
+// app.use("/api/v1/system-admin",sysAdminRouter);
 app.use(globalErrorHandler);
 app.get("/",(req,res)=>{
   res.send("server is okay")
