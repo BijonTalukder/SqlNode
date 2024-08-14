@@ -13,6 +13,9 @@ app.use(express.json());
 app.use('/api/v1', router);
 app.use("/api/v1/system-admin",sysAdminRouter);
 app.use(globalErrorHandler);
+app.get("/",(req,res)=>{
+  res.send("server is okay")
+})
 app.use((req, res, next) => {
     res.status(httpStatus.NOT_FOUND).json({
       success: false,

@@ -1,13 +1,21 @@
 import sysAdminModel from "../model/sysAdminModel.js";
-
+import bcrypt from 'bcrypt'
 
 //create user
 const createSysAdmin=async(postBody)=>{
    
+       const {sysAdminPassword}=postBody;
+       const hashedPassword = await bcrypt.hash(sysAdminPassword,10);
+      
+        const adminWithHashedPassword = {
+          ...postBody,
+          sysAdminPassword: hashedPassword
+      };
   
-        const result = await sysAdminModel.create(postBody)
-   
-        return result;
+      // Create a new sysAdmin record with the hashed password
+      const result = await sysAdminModel.create(adminWithHashedPassword);
+  
+      return result;
     
     
     

@@ -9,6 +9,6 @@ sysAdminRouter.get('/get', sysAdminController.getSysAdmin);
 sysAdminRouter.patch("/patch/:id",sysAdminController.updateSysAdmin);
 
 sysAdminRouter.delete("/del/:id",sysAdminController.deleteSysAdmin);
-
+sysAdminRouter.post("/login",sysAdminController.LoginSysAdmin);
 
 export default sysAdminRouter;

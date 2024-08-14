@@ -4,13 +4,14 @@ import { sysAdminService } from "../service/sysAdminService.js";
 import catchAsync from "../shared/catchAsync.js"
 import sendResponse from "../shared/sendResponse.js";
 import ApiError from "../error/handleApiError.js";
+import sysAdminLogin from "../authenticationService/sysAdminLogin.js";
 
 const createSysAdmin = catchAsync(async (req, res) => {
    
     const { error } = sysAdminSchema.validate(req.body);
     
     if (error) {
-        return ApiError(httpStatus.BAD_REQUEST,error.details[0].message)
+        throw new ApiError(httpStatus.BAD_REQUEST,error.details[0].message)
         
     }
 
@@ -78,10 +79,21 @@ const deleteSysAdmin =catchAsync(async (req, res, next)=>{
   }
 });
 
+const LoginSysAdmin = catchAsync(async(req,res)=>{
+  const data = await sysAdminLogin(req.body);
+  console.log(data);
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'admin logged in successfully !',
+    data: data,
+  });
+})
 export const sysAdminController={
     createSysAdmin,
     getSysAdmin,
     updateSysAdmin,
-    deleteSysAdmin
+    deleteSysAdmin,
+    LoginSysAdmin
     
 }
