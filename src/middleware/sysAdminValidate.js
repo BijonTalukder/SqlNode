@@ -47,7 +47,15 @@ const sysAdminSchema = Joi.object({
             'string.base': 'Password must be a string',
             'string.min': 'Password must be at least 8 characters long',
             'any.required': 'Password is required'
-        })
+        }),
+    sysAdminRole:Joi.string()
+    .messages({
+        'string.base':"Role must be a string"
+    }),
+    sysAdminStatus:Joi.string()
+    .messages({
+        'string.base':"Status must be a string"
+    })
 });
 
 export default sysAdminSchema

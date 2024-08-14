@@ -34,6 +34,14 @@ const sysAdminModel = sequelize.define('sysAdmins', {
     type: DataTypes.STRING,
   
   },
+  sysAdminRole:{
+    type: DataTypes.STRING,
+    
+  },
+  sysAdminStatus:{
+    type:DataTypes.STRING, //inactive,active,block
+
+  },
 
 
 },{
