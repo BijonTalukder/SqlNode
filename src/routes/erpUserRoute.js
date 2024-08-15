@@ -1,10 +1,10 @@
 import express from 'express';
-import { erpUserController } from '../controller/erpUserController';
+import { erpUserController } from '../controller/erpUserController.js';
 
 const erpUserRoute = express.Router();
-router.post('/create', erpUserController.createErpUser);
-router.get('/get', erpUserController.getErpUsers);
-router.get("/getSingle/:id",erpUserController.getErpUserById);
-router.patch("/update/:id",erpUserController.updateErpUser);
-router.delete("/delete/:id",erpUserController.deleteErpUser);
+erpUserRoute.post('/create', erpUserController.createErpUser);
+erpUserRoute.get('/get', erpUserController.getErpUsers);
+erpUserRoute.get("/getSingle/:id",erpUserController.getErpUserById);
+erpUserRoute.patch("/update/:id",erpUserController.updateErpUser);
+erpUserRoute.delete("/delete/:id",erpUserController.deleteErpUser);
 export default erpUserRoute

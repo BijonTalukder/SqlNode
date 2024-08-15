@@ -1,6 +1,6 @@
 import express from 'express';
-import erpUserRoute from './erpUserRoute';
-import sysAdminRouter from './sysAdminRoute';
+import erpUserRoute from './erpUserRoute.js';
+import sysAdminRouter from './sysAdminRoute.js';
 
 const router = express.Router();
 

@@ -8,15 +8,19 @@ import { dotenvHelper } from './dotenv.js';
 
   const createDatabaseIfNotExists = async () => {
     // console.log("call2");
+    console.log(dotenvHelper.dbConfig);
     
     const connection = await mysql.createConnection(
         {
             host: dotenvHelper.dbConfig.host,
             user: dotenvHelper.dbConfig.user,
-            password: dotenvHelper.dbConfig.password,
+            password:dotenvHelper.dbConfig.password,
+            // database:"hostlive_nodeerp"
+            // port:3306,
+            // connectTimeout: 10000,
           }
     );
-    // console.log(connection,"call3");
+    console.log(connection,"call3");
     
     try {
         const res = await connection.query(`CREATE DATABASE IF NOT EXISTS \`${dotenvHelper.dbConfig.database}\``);
@@ -29,9 +33,11 @@ import { dotenvHelper } from './dotenv.js';
   };
  export const setup = async () => {
     try {
-        // console.log("call 1");
+    
         
-      await createDatabaseIfNotExists();
+      // await createDatabaseIfNotExists();
+      // console.log('db s');
+      
       await sequelize.authenticate();
       console.log('Database connected...');
   
