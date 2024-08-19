@@ -10,12 +10,12 @@ import ApiError from '../error/handleApiError.js';
 
 const createErpUser = catchAsync(async (req, res, next) => {
 
-  const { error } = userSchema.validate(req.body);
-  if (error) {
+  // const { error } = userSchema.validate(req.body);
+  // if (error) {
 
-    throw new ApiError(httpStatus.BAD_REQUEST,error.details[0].message)
+  //   throw new ApiError(httpStatus.BAD_REQUEST,error.details[0].message)
     
-  }
+  // }
 
   // Create user
   const user = await userService.createUser(req.body);

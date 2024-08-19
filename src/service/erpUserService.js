@@ -3,6 +3,8 @@ import userModel from "../model/erpUserModel.js";
 
 //create user
 const createUser=async(postBody)=>{
+    console.log("create user hit");
+    
     const result = await userModel.create(postBody)
     return result;
 
