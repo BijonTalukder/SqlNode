@@ -36,10 +36,10 @@ const sysAdminModel = sequelize.define('sysAdmins', {
   },
   sysAdminRole:{
     type: DataTypes.STRING,
-    
+
   },
   sysAdminStatus:{
-    type:DataTypes.STRING, //inactive,active,block
+    type:DataTypes.NUMBER, //0=inactive,1=active,2=block
 
   },
 
