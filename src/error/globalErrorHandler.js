@@ -4,7 +4,7 @@ import handleValidationError from "./handleValidationError.js";
 import handleSequelizeUniqueConstraintError from "./handleSequelizeUniqueConstraintError.js";
 
 const globalErrorHandler = (err, req, res, next) => {
-    console.log(err.fields, "test by bijon");
+    // console.log(err.fields, "test by bijon");
 
     let response = {
         statusCode: 500,

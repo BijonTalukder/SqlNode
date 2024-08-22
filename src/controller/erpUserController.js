@@ -1,23 +1,21 @@
-import Joi from 'joi'; 
+
 import catchAsync from '../shared/catchAsync.js';
-import { userService } from '../service/userService.js';
+import { userService } from '../service/erpUserService.js';
 import sendResponse from '../shared/sendResponse.js';
 import httpStatus from 'http-status';
-import userSchema from '../middleware/userValidate.js';
+import userSchema from '../middleware/erpUserValidate.js';
 import UserModel from '../model/erpUserModel.js';
+import ApiError from '../error/handleApiError.js';
 
 
-const createUser = catchAsync(async (req, res, next) => {
+const createErpUser = catchAsync(async (req, res, next) => {
 
-  const { error } = userSchema.validate(req.body);
-  if (error) {
-    return sendResponse(res, {
-      statusCode: httpStatus.BAD_REQUEST, 
-      success: false,
-      message: error.details[0].message, 
-      data: null
-    });
-  }
+  // const { error } = userSchema.validate(req.body);
+  // if (error) {
+
+  //   throw new ApiError(httpStatus.BAD_REQUEST,error.details[0].message)
+    
+  // }
 
   // Create user
   const user = await userService.createUser(req.body);
@@ -31,7 +29,7 @@ const createUser = catchAsync(async (req, res, next) => {
   });
 });
 
-const getUsers = catchAsync(async (req, res, next) => {
+const getErpUsers = catchAsync(async (req, res, next) => {
   const data = await userService.getUsers()
 
   
@@ -43,7 +41,7 @@ const getUsers = catchAsync(async (req, res, next) => {
   });
 });
 
-const updateUser = catchAsync(async (req, res, next) => {
+const updateErpUser = catchAsync(async (req, res, next) => {
   const { id } = req.params;
   
   const data = userService.updateUser(req.body,id);
@@ -66,7 +64,7 @@ const updateUser = catchAsync(async (req, res, next) => {
   }
 });
 
-const getUserById = catchAsync(async (req, res, next) => {
+const getErpUserById = catchAsync(async (req, res, next) => {
   const { id } = req.params;
  const data = userService.getUser(id);
 
@@ -78,20 +76,22 @@ const getUserById = catchAsync(async (req, res, next) => {
       data: data
     });
   } else {
-    sendResponse(res, {
-      statusCode: httpStatus.NOT_FOUND, 
-      success: false,
-      message: 'User not found',
-      data: null
-    });
+    throw new ApiError(httpStatus.NOT_FOUND,"User not found")
+   
   }
 });
 
-const deleteUser = catchAsync(async (req, res, next) => {
+const deleteErpUser = catchAsync(async (req, res, next) => {
   const { id } = req.params;
   const data = userService.deleteUser(id);
 
   if (data) {
+    sendResponse(res, {
+      statusCode: httpStatus.OK, 
+      success: true,
+      message: 'User update successfully',
+      data: null
+    });
     res.status(httpStatus.NO_CONTENT).send(); 
   } else {
     sendResponse(res, {
@@ -103,4 +103,15 @@ const deleteUser = catchAsync(async (req, res, next) => {
   }
 });
 
-export const userController = { createUser, getUsers, getUserById, updateUser, deleteUser };
+const LoginErpUser = catchAsync(async(req,res)=>{
+  const data = await sysAdminLogin(req.body);
+  console.log(data);
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'admin logged in successfully !',
+    data: data,
+  });
+})
+
+export const erpUserController = { createErpUser, getErpUserById, getErpUsers, updateErpUser, deleteErpUser,LoginErpUser };
